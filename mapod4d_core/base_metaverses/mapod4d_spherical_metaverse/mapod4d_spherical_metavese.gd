@@ -1,14 +1,15 @@
 # tool
 
 # class_name
-class_name Mapod4dMain
-
+class_name Mapod4dSphericalMetaverse
 # extends
-extends Node
-## Main object of multiverse.
+extends Node3D
+
+## Base class for metaverse 3d
 ##
-## This object support autoload of general scenes and metaverses.
+## Spherical metaverse.
 ##
+
 
 # ----- signals
 
@@ -36,9 +37,14 @@ func _ready():
 # ----- remaining built-in virtual methods
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	pass # Replace with function body.
 
 # ----- public methods
 
 # ----- private methods
+
+
+
+
+

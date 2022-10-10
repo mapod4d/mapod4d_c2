@@ -8,6 +8,22 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Node",
+"class": &"Mapod4dMain",
+"language": &"GDScript",
+"path": "res://mapod4d_core/mapod4d_main/mapod4d_main.gd"
+}, {
+"base": "Node3D",
+"class": &"Mapod4dSphericalMetaverse",
+"language": &"GDScript",
+"path": "res://mapod4d_core/base_metaverses/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd"
+}]
+_global_script_class_icons={
+"Mapod4dMain": "",
+"Mapod4dSphericalMetaverse": ""
+}
+
 [application]
 
 config/name="MAPOD4D Multiverse Core V2"
@@ -22,5 +38,5 @@ Mapod4dAutoload="*res://mapod4d_core/mapod4d_autoload/mapod4d_autoload.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1024
+window/size/viewport_height=768
