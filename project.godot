@@ -9,7 +9,7 @@
 config_version=5
 
 _global_script_classes=[{
-"base": "Node",
+"base": "Control",
 "class": &"Mapod4dMain",
 "language": &"GDScript",
 "path": "res://mapod4d_core/mapod4d_main/mapod4d_main.gd"

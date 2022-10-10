@@ -4,7 +4,7 @@
 class_name Mapod4dMain
 
 # extends
-extends Node
+extends Control
 ## Main object of multiverse.
 ##
 ## This object support autoload of general scenes and metaverses.
@@ -23,7 +23,7 @@ extends Node
 # ----- private variables
 
 # ----- onready variables
-
+@onready var utils = $Utils
 
 # ----- optional built-in virtual _init method
 
@@ -40,5 +40,11 @@ func _process(_delta):
 	pass # Replace with function body.
 
 # ----- public methods
+## int somes data and configuration
+func initMain():
+	if utils != null:
+		for child in utils.get_children():
+			if "visible" in child:
+				child.visible = false
 
 # ----- private methods
