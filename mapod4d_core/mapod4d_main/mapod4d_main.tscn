@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvpovb7lu1su7"]
+
+[ext_resource type="Script" path="res://mapod4d_core/mapod4d_main/mapod4d_main.gd" id="1_2b2ub"]
+
+[node name="Mapod4dMain" type="Node"]
+script = ExtResource("1_2b2ub")
+
+[node name="Utils" type="Node" parent="."]
+
+[node name="LoadedScene" type="Node" parent="."]
+editor_description = "Metaverses childs are added here"

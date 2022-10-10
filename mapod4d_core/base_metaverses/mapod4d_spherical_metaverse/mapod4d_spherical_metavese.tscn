@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbvv1w20qtgrh"]
+
+[ext_resource type="Script" path="res://mapod4d_core/base_metaverses/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd" id="1_dloas"]
+
+[node name="Mapo4dSphericalMetavese" type="Node3D"]
+script = ExtResource("1_dloas")
