@@ -36,11 +36,13 @@ extends Control
 func _ready():
 	start_button.pressed.connect(_on_start_button_pressed)
 
+
 # ----- remaining built-in virtual methods
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass # Replace with function body.
+
 
 # ----- public methods
 
@@ -48,7 +50,8 @@ func _process(delta):
 
 func _on_start_button_pressed():
 	print("pressed")
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	DisplayServer.window_set_size(Vector2i(1920, 1080))
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	Mapod4dAutoload.im_alive()
+#	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+#	DisplayServer.window_set_size(Vector2i(1920, 1080))
+#	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+#	Mapod4dAutoload.im_alive()
+

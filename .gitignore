@@ -2,6 +2,9 @@
 # Godot-specific ignores
 .godot/
 .godot/editor/
+!.godot/imported/*
+!.godot/exported/*
+!.godot/uid_cached.bin
 *.translation
 export_presets.cfg
 

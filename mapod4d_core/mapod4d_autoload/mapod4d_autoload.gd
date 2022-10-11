@@ -81,9 +81,10 @@ func _load_np_scene(local_current_scene):
 	mapod4d_main = get_node_or_null("/root/Mapod4dMain")
 	if mapod4d_main != null:
 		var loaded_scene_placeholder = mapod4d_main.get_node("LoadedScene")
-		var child_zero = loaded_scene_placeholder.get_child(0)
-		if child_zero != null:
-			child_zero.queue_free()
+		if loaded_scene_placeholder.get_child_count() > 0:
+			var children = loaded_scene_placeholder.get_children()
+			for child in children:
+				child.queue_free()
 		## add new loaded scene
 		loaded_scene_placeholder.add_child(local_current_scene)
 		local_current_scene.owner = loaded_scene_placeholder
