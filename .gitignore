@@ -1,10 +1,11 @@
 
 # Godot-specific ignores
-.godot/
+#.godot/
 .godot/editor/
-!.godot/imported/*
-!.godot/exported/*
-!.godot/uid_cached.bin
+.godot/shader_cache/
+#!.godot/imported/*
+#!.godot/exported/*
+#!.godot/uid_cached.bin
 *.translation
 export_presets.cfg
 
