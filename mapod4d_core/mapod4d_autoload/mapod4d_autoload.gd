@@ -88,6 +88,7 @@ func _load_np_scene(local_current_scene):
 		## add new loaded scene
 		loaded_scene_placeholder.add_child(local_current_scene)
 		local_current_scene.owner = loaded_scene_placeholder
+		## new current scene
 		_current_loaded_scene = local_current_scene
 		ret_val = true
 	return ret_val
@@ -113,6 +114,18 @@ func _mapod4d_start():
 	var start_scene_res = load(MAPOD4D_START)
 	var start_scene = start_scene_res.instantiate()
 	# tmp, must be load with progressbar
-	_load_np_scene(start_scene)
+	if _load_np_scene(start_scene) == true:
+		_current_loaded_scene.scene_requested.connect(_on_scene_requested)
+
+
+## load new scene with progress bar and fullscreen flag
+func _on_scene_requested(name, fullscreen_flag):
+	print("_on_scene_requested " + name + " " + str(fullscreen_flag))
+	_current_loaded_scene.visible = false
+	if fullscreen_flag == true:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_size(Vector2i(1920, 1080))
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
+
 

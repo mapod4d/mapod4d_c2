@@ -10,6 +10,11 @@ config_version=5
 
 _global_script_classes=[{
 "base": "Control",
+"class": &"BaseMapod4dUi",
+"language": &"GDScript",
+"path": "res://mapod4d_core/base_mapod4d_ui/base_mapod4d_ui.gd"
+}, {
+"base": "Control",
 "class": &"Mapod4dMain",
 "language": &"GDScript",
 "path": "res://mapod4d_core/mapod4d_main/mapod4d_main.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[{
 "path": "res://mapod4d_core/base_metaverses/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd"
 }]
 _global_script_class_icons={
+"BaseMapod4dUi": "",
 "Mapod4dMain": "",
 "Mapod4dSphericalMetaverse": ""
 }
