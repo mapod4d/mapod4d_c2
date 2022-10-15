@@ -21,6 +21,7 @@ const MAPOD4D_START = "res://mapod4d_core/mapod4d_start/mapod4d_start.tscn"
 # ----- exported variables
 
 # ----- public variables
+var loader = null
 
 # ----- private variables
 var _current_loaded_scene = null
@@ -128,13 +129,16 @@ func _on_scene_requested(scene_name, fullscreen_flag):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		DisplayServer.window_set_size(Vector2i(1920, 1080))
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	## start load scene
+#	loader = ResourceLoader.load_interactive(scene_name)
+#	if loader == null:
+#		pass
+#	else:
+#		pass
 
 
 ## load local metaverses list
 func _on_local_meaverses_list_requested():
-	const RVER = "(?<digit0>[0-9]+)\\.(?<digit1>[0-9]+)\\.(?<digit2>[0-9]+)\\.(?<digit3>[0-9]+)"
-	var regex = RegEx.new()
-	regex.compile(RVER)
 	var dir = DirAccess.open("user://metaverses")
 	if dir != null:
 		## dir exists
@@ -144,34 +148,42 @@ func _on_local_meaverses_list_requested():
 				var file = FileAccess.open(
 					"user://metaverses/" + file_name, FileAccess.READ)
 				if file != null:
-					## file exists
-					var json = JSON.new()
-					if json.parse(file.get_as_text()) == OK:
-						## json ok
-						print(str(json.data))
-						var version = regex.search(json.data.version)
-						if version != null:
-							## version ok
-							var data = {}
-							data["metaversefile"] = json.data.filename + \
-									"." + json.data.extension
-							data["core"] = version.get_string("digit0")
-							data["ver"] = version.get_string("digit1")
-							data["build"] = version.get_string("digit2")
-							data["subbuild"] = version.get_string("digit3")
-							var metaverse_file_exists = FileAccess.file_exists(
-									"users://metaverse" + "/" + data["metaversefile"])
-							if metaverse_file_exists == true:
-								print("OK")
-								_metaverse_files.push_back(data)
-							else:
-								print("METAVERSEERROR")
-						else:
-							print("VERSIONERROR")
-					else:
-						print("PARSEERROR")
+					_json_check(file)
 				else:
 					print("FILEERROR")
 	else:
 		print("DIRERROR")
+
+
+## check json file
+func _json_check(file):
+	const RVER = "(?<digit0>[0-9]+)\\.(?<digit1>[0-9]+)\\.(?<digit2>[0-9]+)\\.(?<digit3>[0-9]+)"
+	var regex = RegEx.new()
+	regex.compile(RVER)
+	## file exists
+	var json = JSON.new()
+	if json.parse(file.get_as_text()) == OK:
+		## json ok
+		print(str(json.data))
+		var version = regex.search(json.data.version)
+		if version != null:
+			## version ok
+			var data = {}
+			data["metaversefile"] = json.data.filename + \
+					"." + json.data.extension
+			data["core"] = version.get_string("digit0")
+			data["ver"] = version.get_string("digit1")
+			data["build"] = version.get_string("digit2")
+			data["subbuild"] = version.get_string("digit3")
+			var metaverse_file_exists = FileAccess.file_exists(
+					"users://metaverse" + "/" + data["metaversefile"])
+			if metaverse_file_exists == true:
+				print("OK")
+				_metaverse_files.push_back(data)
+			else:
+				print("METAVERSEERROR")
+		else:
+			print("VERSIONERROR")
+	else:
+		print("PARSEERROR")
 

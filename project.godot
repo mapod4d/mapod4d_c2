@@ -49,6 +49,15 @@ Mapod4dAutoload="*res://mapod4d_core/mapod4d_autoload/mapod4d_autoload.gd"
 window/size/viewport_width=1024
 window/size/viewport_height=768
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/mapod4d/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
 [internationalization]
 
 locale/translations=PackedStringArray("res://localization/localization.en.translation", "res://localization/localization.it.translation")
