@@ -24,6 +24,7 @@ extends Control
 
 # ----- onready variables
 @onready var utils = $Utils
+@onready var progress_bar = $Utils/ProgressBar
 
 # ----- optional built-in virtual _init method
 
@@ -47,5 +48,9 @@ func initMain():
 			if "visible" in child:
 				child.visible = false
 
+
+## start progress bar
+func start_progress_bar():
+	pass
 
 # ----- private methods

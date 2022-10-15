@@ -10,25 +10,21 @@ anchors_preset = 0
 script = ExtResource("1_sgjba")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 768.0
 
 [node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer"]
 custom_minimum_size = Vector2i(1024, 768)
-layout_mode = 2
 offset_right = 1024.0
 offset_bottom = 768.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_aic2l")
 
 [node name="CenterContainer" type="CenterContainer" parent="AspectRatioContainer/PanelContainer"]
-layout_mode = 2
 offset_right = 1024.0
 offset_bottom = 768.0
 
 [node name="Start" type="Button" parent="AspectRatioContainer/PanelContainer/CenterContainer"]
 custom_minimum_size = Vector2i(208, 0)
-layout_mode = 2
 offset_left = 408.0
 offset_top = 368.0
 offset_right = 616.0
