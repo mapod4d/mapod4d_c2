@@ -46,8 +46,10 @@ Mapod4dAutoload="*res://mapod4d_core/mapod4d_autoload/mapod4d_autoload.gd"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=768
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

@@ -21,11 +21,11 @@ const MAPOD4D_START = "res://mapod4d_core/mapod4d_start/mapod4d_start.tscn"
 # ----- exported variables
 
 # ----- public variables
-var loader = null
 
 # ----- private variables
 var _current_loaded_scene = null
 var _metaverse_files = []
+var _loading_scene = ""
 
 # ----- onready variables
 @onready var mapod4d_main = get_node_or_null("/root/Mapod4dMain")
@@ -52,7 +52,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if _loading_scene != "":
+		var progress = []
+		var status = ResourceLoader.load_threaded_get_status(
+				_loading_scene, progress)
+		## progressbar = progress[0] * 100
+		if status == ResourceLoader.THREAD_LOAD_LOADED:
+			pass ## scene is loaded 
+	else:
+		_loading_scene = ""
+		## progressbar = 0
+		set_process(false)
 
 
 # ----- public methods
@@ -116,7 +126,16 @@ func _mapod4d_start():
 	await get_tree().create_timer(0.5).timeout
 	var start_scene_res = load(MAPOD4D_START)
 	var start_scene = start_scene_res.instantiate()
-	# tmp, must be load with progressbar
+	var screen_size = DisplayServer.screen_get_size()
+	@warning_ignore(integer_division)
+	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
+	@warning_ignore(integer_division)
+	var y_position = floor(screen_size.y / 2) - floor(768 / 2)
+	if x_position < 0:
+		x_position = 0
+	if y_position < 0:
+		y_position = 0
+	start_scene.set_position(Vector2i(x_position, y_position))
 	if _load_npb_scene(start_scene) == true:
 		_current_loaded_scene.scene_requested.connect(_on_scene_requested)
 
@@ -127,14 +146,17 @@ func _on_scene_requested(scene_name, fullscreen_flag):
 	_current_loaded_scene.visible = false
 	if fullscreen_flag == true:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		DisplayServer.window_set_size(Vector2i(1920, 1080))
+		## DisplayServer.window_set_size(Vector2i(1920, 1080))
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	## start load scene
-#	loader = ResourceLoader.load_interactive(scene_name)
-#	if loader == null:
-#		pass
-#	else:
-#		pass
+	_loading_scene = scene_name
+	var result = ResourceLoader.load_threaded_request(_loading_scene)
+	if result != OK:
+		print("ERRORLOADRESOURCE")
+		_loading_scene = null
+	else:
+		## progressbar = 0
+		set_process(true)
 
 
 ## load local metaverses list
