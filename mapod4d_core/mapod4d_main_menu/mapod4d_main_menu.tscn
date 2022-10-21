@@ -101,12 +101,13 @@ offset_right = 958.0
 offset_bottom = 790.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 48
+theme_override_constants/margin_bottom = 83
 
 [node name="left" type="VBoxContainer" parent="PanelContainer/Screen/Body/MarginContainer"]
 layout_mode = 2
 offset_left = 48.0
 offset_right = 958.0
-offset_bottom = 790.0
+offset_bottom = 707.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="PanelContainer/Screen/Body/MarginContainer/left"]
@@ -120,7 +121,7 @@ text = "LMETAVERSE"
 layout_mode = 2
 offset_top = 46.0
 offset_right = 910.0
-offset_bottom = 790.0
+offset_bottom = 707.0
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 29
 theme_override_styles/panel = SubResource("StyleBoxFlat_1py6f")

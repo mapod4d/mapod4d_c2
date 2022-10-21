@@ -122,22 +122,23 @@ func _start_f6():
 
 ## called only on start
 func _mapod4d_start():
+	pass
 	## workaroung bake problem (godot 3.5.1)
-	await get_tree().create_timer(0.5).timeout
-	var start_scene_res = load(MAPOD4D_START)
-	var start_scene = start_scene_res.instantiate()
-	var screen_size = DisplayServer.screen_get_size()
-	@warning_ignore(integer_division)
-	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
-	@warning_ignore(integer_division)
-	var y_position = floor(screen_size.y / 2) - floor(768 / 2)
-	if x_position < 0:
-		x_position = 0
-	if y_position < 0:
-		y_position = 0
-	start_scene.set_position(Vector2i(x_position, y_position))
-	if _load_npb_scene(start_scene) == true:
-		_current_loaded_scene.scene_requested.connect(_on_scene_requested)
+#	await get_tree().create_timer(0.5).timeout
+#	var start_scene_res = load(MAPOD4D_START)
+#	var start_scene = start_scene_res.instantiate()
+#	var screen_size = DisplayServer.screen_get_size()
+#	@warning_ignore(integer_division)
+#	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
+#	@warning_ignore(integer_division)
+#	var y_position = floor(screen_size.y / 2) - floor(768 / 2)
+#	if x_position < 0:
+#		x_position = 0
+#	if y_position < 0:
+#		y_position = 0
+#	start_scene.set_position(Vector2i(x_position, y_position))
+#	if _load_npb_scene(start_scene) == true:
+#		_current_loaded_scene.scene_requested.connect(_on_scene_requested)
 
 
 ## load new scene with progress bar and fullscreen flag
