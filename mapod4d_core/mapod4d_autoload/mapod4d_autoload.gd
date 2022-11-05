@@ -17,6 +17,7 @@ extends Node
 # ----- constants
 const MAPOD4D_MAIN_RES = "res://mapod4d_core/mapod4d_main/mapod4d_main.tscn"
 const MAPOD4D_START = "res://mapod4d_core/mapod4d_start/mapod4d_start.tscn"
+const MAPOD4D_METAVERSE_EXT = "ma4d"
 
 # ----- exported variables
 
@@ -25,7 +26,9 @@ const MAPOD4D_START = "res://mapod4d_core/mapod4d_start/mapod4d_start.tscn"
 # ----- private variables
 var _current_loaded_scene = null
 var _metaverse_files = []
-var _loading_scene = ""
+var _loading_scene_res = ""
+var _resource_loaded = false
+
 
 # ----- onready variables
 @onready var mapod4d_main = get_node_or_null("/root/Mapod4dMain")
@@ -38,7 +41,6 @@ var _loading_scene = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(false)
-	_on_local_meaverses_list_requested()
 	if mapod4d_main == null:
 		## support for F6 in edit mode when MopodMain is Null (not main scene)
 		## force not show intro
@@ -52,25 +54,67 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if _loading_scene != "":
-		var progress = []
-		var status = ResourceLoader.load_threaded_get_status(
-				_loading_scene, progress)
-		var progressbar = progress[0] * 100
-		print("progress " + str(progressbar))
-		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			print("loaded") ## scene is loaded
-			set_process(false)
-			call_deferred("_load_scene")
+	if _loading_scene_res != "":
+		if _resource_loaded == false:
+			var progress = []
+			var status = ResourceLoader.load_threaded_get_status(
+					_loading_scene_res, progress)
+			var perc = progress[0] * 100 * 1.0
+			_set_progress_bar(perc)
+			print("progress " + str(perc))
+			if status == ResourceLoader.THREAD_LOAD_LOADED:
+				print("loaded") ## scene is loaded
+				_resource_loaded == true
+				set_process(false)
+				call_deferred("_load_scene")
 	else:
-		_loading_scene = ""
+		_loading_scene_res = ""
 		## progressbar = 0
 		set_process(false)
 
 
 # ----- public methods
+
+
 func im_alive():
 	print("IMA")
+
+
+## load local metaverses list
+func local_meaverses_list_load():
+	var dir = DirAccess.open("user://metaverses")
+	if dir != null:
+		## dir exists
+		var list_files = dir.get_files()
+		for file_name in list_files:
+			if file_name.ends_with("." + MAPOD4D_METAVERSE_EXT):
+				var file = FileAccess.open(
+					"user://metaverses/" + file_name, FileAccess.READ)
+				if file != null:
+					_json_check(file)
+				else:
+					print("FILEERROR")
+	else:
+		print("DIRERROR")
+
+
+## load dev metaverses list
+func dev_meaverses_list_load():
+	var dir = DirAccess.open("res://mapod4d_multiverses_dev/")
+	if dir != null:
+		## dir exists
+		var list_files = dir.get_files()
+		for file_name in list_files:
+			if file_name.ends_with("." + MAPOD4D_METAVERSE_EXT):
+				var file = FileAccess.open(
+					"res://mapod4d_multiverses_dev/" 
+					+ file_name, FileAccess.READ)
+				if file != null:
+					_json_check(file)
+				else:
+					print("FILEERROR")
+	else:
+		print("DIRERROR")
 
 
 # ----- private methods
@@ -89,6 +133,24 @@ func _loadMain():
 	else:
 		local_current_scene = null
 	return local_current_scene
+
+
+func _init_progress_bar():
+	mapod4d_main = get_node_or_null("/root/Mapod4dMain")
+	if mapod4d_main != null:
+		mapod4d_main.init_progress_bar()
+
+
+func _set_progress_bar(value: float):
+	mapod4d_main = get_node_or_null("/root/Mapod4dMain")
+	if mapod4d_main != null:
+		mapod4d_main.set_progress_bar(value)
+
+
+func _end_progress_bar():
+	mapod4d_main = get_node_or_null("/root/Mapod4dMain")
+	if mapod4d_main != null:
+		mapod4d_main.end_progress_bar()
 
 
 ## load scene without progressbar and update
@@ -116,9 +178,10 @@ func _load_npb_scene(scene):
 func _load_scene():
 	var ret_val = false
 	print("_load_scene()")
-	var scene = ResourceLoader.load_threaded_get(_loading_scene)
-	if scene != null:
-		var scene_instance = scene.instantiate()
+	var scene_res = ResourceLoader.load_threaded_get(_loading_scene_res)
+	_loading_scene_res = ""
+	if scene_res != null:
+		var scene_instance = scene_res.instantiate()
 		mapod4d_main = get_node_or_null("/root/Mapod4dMain")
 		if mapod4d_main != null:
 			var loaded_scene_placeholder = mapod4d_main.get_node("LoadedScene")
@@ -132,6 +195,7 @@ func _load_scene():
 			## new current scene
 			_current_loaded_scene = scene_instance
 			ret_val = true
+	_end_progress_bar()
 	return ret_val
 
 ## load scene no progress bar and update
@@ -210,24 +274,6 @@ func _json_check(file):
 		print("PARSEERROR")
 
 
-## load local metaverses list
-func _on_local_meaverses_list_requested():
-	var dir = DirAccess.open("user://metaverses")
-	if dir != null:
-		## dir exists
-		var list_files = dir.get_files()
-		for file_name in list_files:
-			if file_name.ends_with(".json"):
-				var file = FileAccess.open(
-					"user://metaverses/" + file_name, FileAccess.READ)
-				if file != null:
-					_json_check(file)
-				else:
-					print("FILEERROR")
-	else:
-		print("DIRERROR")
-
-
 ## elaborates signal load new scene 
 ## without thr progressbar and the fullscreen flag
 func _on_scene_npb_requested(scene_name, fullscreen_flag):
@@ -253,12 +299,14 @@ func _on_scene_requested(scene_name, fullscreen_flag):
 	if fullscreen_flag == true:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	_init_progress_bar()
 	## start load scene
-	_loading_scene = scene_name
-	var result = ResourceLoader.load_threaded_request(_loading_scene)
+	_loading_scene_res = scene_name
+	_resource_loaded = false
+	var result = ResourceLoader.load_threaded_request(_loading_scene_res)
 	if result != OK:
 		print("ERRORLOADRESOURCE")
-		_loading_scene = null
+		_loading_scene_res = ""
 	else:
 		## progressbar = 0
 		set_process(true)

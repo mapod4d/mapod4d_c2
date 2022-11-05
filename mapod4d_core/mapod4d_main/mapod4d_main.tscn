@@ -96,6 +96,7 @@ offset_right = 1735.0
 offset_bottom = 23.0
 theme_override_styles/background = SubResource("StyleBoxFlat_50kt5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2r64m")
+step = 1.0
 
 [node name="LoadedScene" type="Node" parent="."]
 editor_description = "Metaverses childs are added here"
