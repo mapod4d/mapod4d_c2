@@ -24,6 +24,7 @@ grow_vertical = 2
 script = ExtResource("1_2b2ub")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,6 +46,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="Utils/ProgressBar"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,6 +55,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_slwe8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Utils/ProgressBar/Panel"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,12 +63,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainerLabel" type="MarginContainer" parent="Utils/ProgressBar/Panel/VBoxContainer"]
+layout_mode = 2
 offset_right = 1024.0
 offset_bottom = 382.0
 size_flags_vertical = 3
 theme_override_constants/margin_top = 235
 
 [node name="Label" type="Label" parent="Utils/ProgressBar/Panel/VBoxContainer/MarginContainerLabel"]
+layout_mode = 2
 offset_top = 235.0
 offset_right = 1024.0
 offset_bottom = 382.0
@@ -76,6 +81,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainerPB" type="MarginContainer" parent="Utils/ProgressBar/Panel/VBoxContainer"]
+layout_mode = 2
 offset_top = 386.0
 offset_right = 1024.0
 offset_bottom = 768.0
@@ -84,6 +90,7 @@ theme_override_constants/margin_left = 185
 theme_override_constants/margin_right = 185
 
 [node name="ProgressBar" type="ProgressBar" parent="Utils/ProgressBar/Panel/VBoxContainer/MarginContainerPB"]
+layout_mode = 2
 offset_left = 185.0
 offset_right = 839.0
 offset_bottom = 23.0
