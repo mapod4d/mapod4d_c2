@@ -15,7 +15,10 @@ extends Control
 
 
 # ----- signals
-signal scene_requested(name: String, fullscreen_flag: bool)
+## request scene whithout progressbar
+signal scene_npb_requested(scene_name: String, fullscreen_flag: bool)
+## request scene whith progressbar
+signal scene_requested(scene_name: String, fullscreen_flag: bool)
 
 # ----- enums
 

@@ -58,7 +58,7 @@ func _process(_delta):
 				_loading_scene, progress)
 		## progressbar = progress[0] * 100
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			pass ## scene is loaded 
+			print("loaded") ## scene is loaded 
 	else:
 		_loading_scene = ""
 		## progressbar = 0
@@ -72,12 +72,12 @@ func im_alive():
 
 # ----- private methods
 
-## load Mapod4dMain
+## load Mapod4dMain and return the instance
 func _loadMain():
 	var local_current_scene = get_tree().current_scene
 	if not (local_current_scene is Mapod4dMain):
 		var root = get_node("/root")
-		var mapod4d_main_res = load(MAPOD4D_MAIN_RES)
+		var mapod4d_main_res = preload(MAPOD4D_MAIN_RES)
 		if mapod4d_main_res != null:
 			mapod4d_main = mapod4d_main_res.instantiate()
 			root.remove_child(local_current_scene)
@@ -88,8 +88,9 @@ func _loadMain():
 	return local_current_scene
 
 
-## load scene no progress bar
-func _load_npb_scene(local_current_scene):
+## load scene no progress bar and update
+## _current_loaded_scene updated
+func _load_npb_scene(scene):
 	var ret_val = false
 	mapod4d_main = get_node_or_null("/root/Mapod4dMain")
 	if mapod4d_main != null:
@@ -99,12 +100,22 @@ func _load_npb_scene(local_current_scene):
 			for child in children:
 				child.queue_free()
 		## add new loaded scene
-		loaded_scene_placeholder.add_child(local_current_scene)
-		local_current_scene.owner = loaded_scene_placeholder
+		loaded_scene_placeholder.add_child(scene)
+		scene.owner = loaded_scene_placeholder
 		## new current scene
-		_current_loaded_scene = local_current_scene
+		_current_loaded_scene = scene
 		ret_val = true
 	return ret_val
+
+
+## load scene no progress bar and update
+## _current_loaded_scene updated
+func _attach_current_loaded_scene_signals():
+	if _current_loaded_scene is BaseMapod4dUi:
+		_current_loaded_scene.scene_requested.connect(
+			_on_scene_requested, CONNECT_DEFERRED)
+		_current_loaded_scene.scene_npb_requested.connect(
+			_on_scene_npd_requested, CONNECT_DEFERRED)
 
 
 ## called only on F6
@@ -120,62 +131,24 @@ func _start_f6():
 		pass # error load main
 
 
-## called only on start
+## called only on start F5
 func _mapod4d_start():
-	pass
 	## workaroung bake problem (godot 3.5.1)
-#	await get_tree().create_timer(0.5).timeout
-#	var start_scene_res = load(MAPOD4D_START)
-#	var start_scene = start_scene_res.instantiate()
-#	var screen_size = DisplayServer.screen_get_size()
-#	@warning_ignore(integer_division)
-#	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
-#	@warning_ignore(integer_division)
-#	var y_position = floor(screen_size.y / 2) - floor(768 / 2)
-#	if x_position < 0:
-#		x_position = 0
-#	if y_position < 0:
-#		y_position = 0
-#	start_scene.set_position(Vector2i(x_position, y_position))
-#	if _load_npb_scene(start_scene) == true:
-#		_current_loaded_scene.scene_requested.connect(_on_scene_requested)
-
-
-## load new scene with progress bar and fullscreen flag
-func _on_scene_requested(scene_name, fullscreen_flag):
-	print("_on_scene_requested " + scene_name + " " + str(fullscreen_flag))
-	_current_loaded_scene.visible = false
-	if fullscreen_flag == true:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		## DisplayServer.window_set_size(Vector2i(1920, 1080))
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	## start load scene
-	_loading_scene = scene_name
-	var result = ResourceLoader.load_threaded_request(_loading_scene)
-	if result != OK:
-		print("ERRORLOADRESOURCE")
-		_loading_scene = null
-	else:
-		## progressbar = 0
-		set_process(true)
-
-
-## load local metaverses list
-func _on_local_meaverses_list_requested():
-	var dir = DirAccess.open("user://metaverses")
-	if dir != null:
-		## dir exists
-		var list_files = dir.get_files()
-		for file_name in list_files:
-			if file_name.ends_with(".json"):
-				var file = FileAccess.open(
-					"user://metaverses/" + file_name, FileAccess.READ)
-				if file != null:
-					_json_check(file)
-				else:
-					print("FILEERROR")
-	else:
-		print("DIRERROR")
+	await get_tree().create_timer(0.5).timeout
+	var start_scene_res = load(MAPOD4D_START)
+	var start_scene = start_scene_res.instantiate()
+	var screen_size = DisplayServer.screen_get_size()
+	@warning_ignore(integer_division)
+	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
+	@warning_ignore(integer_division)
+	var y_position = floor(screen_size.y / 2) - floor(768 / 2)
+	if x_position < 0:
+		x_position = 0
+	if y_position < 0:
+		y_position = 0
+	start_scene.set_position(Vector2i(x_position, y_position))
+	if _load_npb_scene(start_scene) == true:
+		_attach_current_loaded_scene_signals()
 
 
 ## check json file
@@ -209,4 +182,58 @@ func _json_check(file):
 			print("VERSIONERROR")
 	else:
 		print("PARSEERROR")
+
+
+## load local metaverses list
+func _on_local_meaverses_list_requested():
+	var dir = DirAccess.open("user://metaverses")
+	if dir != null:
+		## dir exists
+		var list_files = dir.get_files()
+		for file_name in list_files:
+			if file_name.ends_with(".json"):
+				var file = FileAccess.open(
+					"user://metaverses/" + file_name, FileAccess.READ)
+				if file != null:
+					_json_check(file)
+				else:
+					print("FILEERROR")
+	else:
+		print("DIRERROR")
+
+
+## elaborates signal load new scene 
+## without thr progressbar and the fullscreen flag
+func _on_scene_npd_requested(scene_name, fullscreen_flag):
+	print("_on_scene_npd_requested " + scene_name + " " + str(fullscreen_flag))
+	_current_loaded_scene.visible = false
+	if fullscreen_flag == true:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	# load scene
+	var scene_res = load(scene_name)
+	if scene_res != null:
+		var scene = scene_res.instantiate()
+		if scene != null:
+			if _load_npb_scene(scene) == true:
+				_attach_current_loaded_scene_signals()
+
+
+## elaborates signal load new scene 
+## with the progressbar and the fullscreen flag
+func _on_scene_requested(scene_name, fullscreen_flag):
+	print("_on_scene_requested " + scene_name + " " + str(fullscreen_flag))
+	_current_loaded_scene.visible = false
+	if fullscreen_flag == true:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	## start load scene
+	_loading_scene = scene_name
+	var result = ResourceLoader.load_threaded_request(_loading_scene)
+	if result != OK:
+		print("ERRORLOADRESOURCE")
+		_loading_scene = null
+	else:
+		## progressbar = 0
+		set_process(true)
 
