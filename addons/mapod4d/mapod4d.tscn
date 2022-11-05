@@ -1,26 +1,97 @@
-[gd_scene format=3 uid="uid://cqdmwsjo0ujdu"]
+[gd_scene load_steps=3 format=3 uid="uid://cqdmwsjo0ujdu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_no4ab"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 3.0
+bg_color = Color(0.337255, 0.337255, 0.337255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0oomw"]
+bg_color = Color(0.282353, 0.282353, 0.282353, 1)
 
 [node name="Mapod4d" type="Control"]
 layout_mode = 3
+anchor_bottom = 1.0
+offset_right = 367.0
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 283.0
-offset_bottom = 591.0
-theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 11
-
-[node name="Button" type="Button" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
-offset_left = 11.0
-offset_top = 11.0
-offset_right = 156.0
-offset_bottom = 42.0
+offset_right = 367.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 357.0
+offset_bottom = 1070.0
+
+[node name="PanelContainer" type="PanelContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+offset_right = 347.0
+offset_bottom = 103.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_no4ab")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 343.0
+offset_bottom = 100.0
+
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+offset_right = 339.0
+offset_bottom = 26.0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.627451, 0.74902, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_0oomw")
+text = "Metavese building"
+vertical_alignment = 1
+
+[node name="ButtonCreate" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = 30.0
+offset_right = 182.0
+offset_bottom = 61.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Metaverse export"
+text = "Create new Metaverse"
+
+[node name="MetaverseID" type="LineEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = 65.0
+offset_right = 339.0
+offset_bottom = 96.0
+placeholder_text = "Metaverse ID"
+max_length = 20
+clear_button_enabled = true
