@@ -20,7 +20,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,7 +28,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rsncy")
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer"]
-layout_mode = 2
 offset_top = 1.0
 offset_right = 1920.0
 offset_bottom = 1078.0
@@ -39,25 +37,21 @@ texture = ExtResource("1_w1wsl")
 stretch_mode = 4
 
 [node name="Panel" type="Panel" parent="PanelContainer"]
-layout_mode = 2
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crij7")
 
 [node name="Screen" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme_override_constants/separation = 29
 metadata/test = &"TEST"
 
 [node name="Header" type="HBoxContainer" parent="PanelContainer/Screen"]
-layout_mode = 2
 offset_right = 1920.0
 offset_bottom = 261.0
 
 [node name="Title" type="MarginContainer" parent="PanelContainer/Screen/Header"]
-layout_mode = 2
 offset_right = 1330.0
 offset_bottom = 261.0
 theme_override_constants/margin_left = 147
@@ -65,14 +59,12 @@ theme_override_constants/margin_top = 37
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Screen/Header/Title"]
 custom_minimum_size = Vector2(499, 0)
-layout_mode = 2
 offset_left = 147.0
 offset_top = 37.0
 offset_right = 1330.0
 offset_bottom = 261.0
 
 [node name="Label" type="Label" parent="PanelContainer/Screen/Header/Title/VBoxContainer"]
-layout_mode = 2
 offset_right = 1183.0
 offset_bottom = 150.0
 theme_override_font_sizes/font_size = 107
@@ -80,7 +72,6 @@ text = "MULTIVERSEMAPOD4D"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="PanelContainer/Screen/Header/Title/VBoxContainer"]
-layout_mode = 2
 offset_top = 154.0
 offset_right = 1183.0
 offset_bottom = 224.0
@@ -89,14 +80,12 @@ text = "Motto"
 horizontal_alignment = 1
 
 [node name="Body" type="HBoxContainer" parent="PanelContainer/Screen"]
-layout_mode = 2
 offset_top = 290.0
 offset_right = 1920.0
 offset_bottom = 1080.0
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Screen/Body"]
-layout_mode = 2
 offset_right = 958.0
 offset_bottom = 790.0
 size_flags_horizontal = 3
@@ -104,21 +93,18 @@ theme_override_constants/margin_left = 48
 theme_override_constants/margin_bottom = 83
 
 [node name="left" type="VBoxContainer" parent="PanelContainer/Screen/Body/MarginContainer"]
-layout_mode = 2
 offset_left = 48.0
 offset_right = 958.0
 offset_bottom = 707.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="PanelContainer/Screen/Body/MarginContainer/left"]
-layout_mode = 2
 offset_right = 910.0
 offset_bottom = 42.0
 theme_override_font_sizes/font_size = 28
 text = "LMETAVERSE"
 
 [node name="ItemList" type="ItemList" parent="PanelContainer/Screen/Body/MarginContainer/left"]
-layout_mode = 2
 offset_top = 46.0
 offset_right = 910.0
 offset_bottom = 707.0
@@ -129,7 +115,6 @@ item_count = 1
 item_0/text = "TEST"
 
 [node name="right" type="VBoxContainer" parent="PanelContainer/Screen/Body"]
-layout_mode = 2
 offset_left = 962.0
 offset_right = 1920.0
 offset_bottom = 790.0

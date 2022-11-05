@@ -56,9 +56,12 @@ func _process(_delta):
 		var progress = []
 		var status = ResourceLoader.load_threaded_get_status(
 				_loading_scene, progress)
-		## progressbar = progress[0] * 100
+		var progressbar = progress[0] * 100
+		print("progress " + str(progressbar))
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			print("loaded") ## scene is loaded 
+			print("loaded") ## scene is loaded
+			set_process(false)
+			call_deferred("_load_scene")
 	else:
 		_loading_scene = ""
 		## progressbar = 0
@@ -67,7 +70,7 @@ func _process(_delta):
 
 # ----- public methods
 func im_alive():
-	print("IME")
+	print("IMA")
 
 
 # ----- private methods
@@ -88,7 +91,7 @@ func _loadMain():
 	return local_current_scene
 
 
-## load scene no progress bar and update
+## load scene without progressbar and update
 ## _current_loaded_scene updated
 func _load_npb_scene(scene):
 	var ret_val = false
@@ -108,6 +111,29 @@ func _load_npb_scene(scene):
 	return ret_val
 
 
+## load scene with progressbar and update
+## _current_loaded_scene updated
+func _load_scene():
+	var ret_val = false
+	print("_load_scene()")
+	var scene = ResourceLoader.load_threaded_get(_loading_scene)
+	if scene != null:
+		var scene_instance = scene.instantiate()
+		mapod4d_main = get_node_or_null("/root/Mapod4dMain")
+		if mapod4d_main != null:
+			var loaded_scene_placeholder = mapod4d_main.get_node("LoadedScene")
+			if loaded_scene_placeholder.get_child_count() > 0:
+				var children = loaded_scene_placeholder.get_children()
+				for child in children:
+					child.queue_free()
+			## add new loaded scene
+			loaded_scene_placeholder.add_child(scene_instance)
+			scene_instance.owner = loaded_scene_placeholder
+			## new current scene
+			_current_loaded_scene = scene_instance
+			ret_val = true
+	return ret_val
+
 ## load scene no progress bar and update
 ## _current_loaded_scene updated
 func _attach_current_loaded_scene_signals():
@@ -115,7 +141,7 @@ func _attach_current_loaded_scene_signals():
 		_current_loaded_scene.scene_requested.connect(
 			_on_scene_requested, CONNECT_DEFERRED)
 		_current_loaded_scene.scene_npb_requested.connect(
-			_on_scene_npd_requested, CONNECT_DEFERRED)
+			_on_scene_npb_requested, CONNECT_DEFERRED)
 
 
 ## called only on F6
@@ -135,8 +161,8 @@ func _start_f6():
 func _mapod4d_start():
 	## workaroung bake problem (godot 3.5.1)
 	await get_tree().create_timer(0.5).timeout
-	var start_scene_res = load(MAPOD4D_START)
-	var start_scene = start_scene_res.instantiate()
+	var start_scene_res = preload(MAPOD4D_START)
+	var start_scene_instance = start_scene_res.instantiate()
 	var screen_size = DisplayServer.screen_get_size()
 	@warning_ignore(integer_division)
 	var x_position = floor(screen_size.x / 2) - floor(1024 / 2)
@@ -146,8 +172,8 @@ func _mapod4d_start():
 		x_position = 0
 	if y_position < 0:
 		y_position = 0
-	start_scene.set_position(Vector2i(x_position, y_position))
-	if _load_npb_scene(start_scene) == true:
+	start_scene_instance.set_position(Vector2i(x_position, y_position))
+	if _load_npb_scene(start_scene_instance) == true:
 		_attach_current_loaded_scene_signals()
 
 
@@ -204,7 +230,7 @@ func _on_local_meaverses_list_requested():
 
 ## elaborates signal load new scene 
 ## without thr progressbar and the fullscreen flag
-func _on_scene_npd_requested(scene_name, fullscreen_flag):
+func _on_scene_npb_requested(scene_name, fullscreen_flag):
 	print("_on_scene_npd_requested " + scene_name + " " + str(fullscreen_flag))
 	_current_loaded_scene.visible = false
 	if fullscreen_flag == true:
