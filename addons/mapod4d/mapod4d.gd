@@ -32,7 +32,15 @@ func _exit_tree():
 
 
 func _on_button_create_pressed():
-	pass
+	print("_on_button_create_pressed()")
+	var file = FileAccess.open(
+			"res://mapod4d_multiverses_dev/puppo.ma4d", FileAccess.WRITE)
+	if file != null:
+		print("file opened")
+		file.store_string("content")
+		file.flush()
+	file = null
+
 
 
 func _on_metaverse_id_text_changed(new_text):
