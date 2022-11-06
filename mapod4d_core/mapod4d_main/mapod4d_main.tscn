@@ -1,11 +1,102 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvpovb7lu1su7"]
+[gd_scene load_steps=6 format=3 uid="uid://dvpovb7lu1su7"]
 
 [ext_resource type="Script" path="res://mapod4d_core/mapod4d_main/mapod4d_main.gd" id="1_2b2ub"]
 
-[node name="Mapod4dMain" type="Node"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siw3u"]
+bg_color = Color(0, 0, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slwe8"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50kt5"]
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2r64m"]
+bg_color = Color(0.94902, 0.94902, 0.94902, 1)
+
+[node name="Mapod4dMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_2b2ub")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_siw3u")
+
 [node name="Utils" type="Node" parent="."]
+
+[node name="ProgressBar" type="Control" parent="Utils"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Utils/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_slwe8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Utils/ProgressBar/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainerLabel" type="MarginContainer" parent="Utils/ProgressBar/Panel/VBoxContainer"]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 538.0
+size_flags_vertical = 3
+theme_override_constants/margin_top = 235
+
+[node name="Label" type="Label" parent="Utils/ProgressBar/Panel/VBoxContainer/MarginContainerLabel"]
+layout_mode = 2
+offset_top = 235.0
+offset_right = 1920.0
+offset_bottom = 538.0
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+text = "PBLOADING"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainerPB" type="MarginContainer" parent="Utils/ProgressBar/Panel/VBoxContainer"]
+layout_mode = 2
+offset_top = 542.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 185
+theme_override_constants/margin_right = 185
+
+[node name="ProgressBar" type="ProgressBar" parent="Utils/ProgressBar/Panel/VBoxContainer/MarginContainerPB"]
+layout_mode = 2
+offset_left = 185.0
+offset_right = 1735.0
+offset_bottom = 23.0
+theme_override_styles/background = SubResource("StyleBoxFlat_50kt5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2r64m")
+step = 1.0
 
 [node name="LoadedScene" type="Node" parent="."]
 editor_description = "Metaverses childs are added here"

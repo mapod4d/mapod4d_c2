@@ -1,9 +1,10 @@
 # tool
 
 # class_name
+class_name BaseMapod4dUi
 
 # extends
-extends BaseMapod4dUi
+extends Control
 
 ## A brief description of your script.
 ##
@@ -14,6 +15,10 @@ extends BaseMapod4dUi
 
 
 # ----- signals
+## request scene whithout progressbar
+signal scene_npb_requested(scene_name: String, fullscreen_flag: bool)
+## request scene whith progressbar
+signal scene_requested(scene_name: String, fullscreen_flag: bool)
 
 # ----- enums
 
@@ -26,7 +31,7 @@ extends BaseMapod4dUi
 # ----- private variables
 
 # ----- onready variables
-@onready var start_button = $AspectRatioContainer/PanelContainer/CenterContainer/Start
+
 
 # ----- optional built-in virtual _init method
 
@@ -34,8 +39,7 @@ extends BaseMapod4dUi
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_button.pressed.connect(_on_start_button_pressed)
-
+	pass # Replace with function body.
 
 # ----- remaining built-in virtual methods
 
@@ -43,17 +47,11 @@ func _ready():
 func _process(_delta):
 	pass # Replace with function body.
 
-
 # ----- public methods
 
 # ----- private methods
 
-func _on_start_button_pressed():
-	print("pressed")
-#	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-#	DisplayServer.window_set_size(Vector2i(1920, 1080))
-#	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-#	Mapod4dAutoload.im_alive()
-	emit_signal("scene_requested", 
-			"res://mapod4d_core/mapod4d_main_menu/mapod4d_main_menu.tscn", true)
+
+
+
 

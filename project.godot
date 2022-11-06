@@ -9,7 +9,12 @@
 config_version=5
 
 _global_script_classes=[{
-"base": "Node",
+"base": "Control",
+"class": &"BaseMapod4dUi",
+"language": &"GDScript",
+"path": "res://mapod4d_core/base_mapod4d_ui/base_mapod4d_ui.gd"
+}, {
+"base": "Control",
 "class": &"Mapod4dMain",
 "language": &"GDScript",
 "path": "res://mapod4d_core/mapod4d_main/mapod4d_main.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[{
 "path": "res://mapod4d_core/base_metaverses/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd"
 }]
 _global_script_class_icons={
+"BaseMapod4dUi": "",
 "Mapod4dMain": "",
 "Mapod4dSphericalMetaverse": ""
 }
@@ -29,6 +35,8 @@ _global_script_class_icons={
 config/name="MAPOD4D Multiverse Core V2"
 config/description="Multiverse of metaverse MAPOD4D"
 run/main_scene="res://mapod4d_core/mapod4d_main/mapod4d_main.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="mapod4d"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -38,5 +46,21 @@ Mapod4dAutoload="*res://mapod4d_core/mapod4d_autoload/mapod4d_autoload.gd"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=768
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/mapod4d/plugin.cfg", "res://addons/mapod4d_ma4d/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/localization.en.translation", "res://localization/localization.it.translation")
+locale/locale_filter_mode=0
