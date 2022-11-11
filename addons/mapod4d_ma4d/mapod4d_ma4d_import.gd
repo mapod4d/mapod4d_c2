@@ -18,11 +18,11 @@ func _get_recognized_extensions():
 
 
 func _get_save_extension():
-	return "mvmapod4d"
+	return "tres"
 
 
 func _get_resource_type():
-	return "Res"
+	return "BaseMeMapod4dRes"
 
 
 func _get_priority():
@@ -61,7 +61,29 @@ func _get_option_visibility(path, option_name, options):
 
 
 func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
-	var resource = Resource.new()
-	return ResourceSaver.save(
-		resource, "%s.%s" % [save_path, _get_save_extension()])
+	var ret_val = false
+	var utils = Mapod4dUtils.new()
+	var metaverse_info = utils.metaverse_info_read(source_file)
+	if metaverse_info[0] == true:
+		ret_val = ResourceSaver.save(
+			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
+		metaverse_info[1].free()
+	else:
+		var resource = BaseMeMapod4dRes.new()
+		ret_val = ResourceSaver.save(
+			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
+		resource.free()
+#	var resource = BaseMeMapod4dRes.new()
+#	var file = FileAccess.open(source_file, FileAccess.READ)
+#	if file != null:
+#		var data = file.get_line()
+#		var data_json = JSON.parse_string(data)
+#		if data_json != null:
+#			resource.name = str(data_json.name)
+#			resource.v1 = data_json.v1
+#			resource.v2 = data_json.v2
+#			resource.v3 = data_json.v3
+#			resource.v4 = data_json.v4
+	utils.free()
+	return ret_val
 
