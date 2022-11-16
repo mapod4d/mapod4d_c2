@@ -67,12 +67,10 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	if metaverse_info[0] == true:
 		ret_val = ResourceSaver.save(
 			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
-		metaverse_info[1].free()
 	else:
 		var resource = BaseMeMapod4dRes.new()
 		ret_val = ResourceSaver.save(
 			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
-		resource.free()
 #	var resource = BaseMeMapod4dRes.new()
 #	var file = FileAccess.open(source_file, FileAccess.READ)
 #	if file != null:

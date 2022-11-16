@@ -85,7 +85,9 @@ func metaverse_list_clear():
 
 
 func metaverse_scaffold(
-		location: MAPOD4D_METAVERSE_LOCATION, metaverse_id: String):
+		location: MAPOD4D_METAVERSE_LOCATION,
+		metaverse_id: String,
+		v1: int, v2: int, v3: int, v4: int):
 	var dir = null
 	if _choose_metaverse_location(location) == true:
 		dir = DirAccess.open(_current_location)
@@ -99,11 +101,11 @@ func metaverse_scaffold(
 				if dir.make_dir(metaverse_entry) == OK:
 					var file = FileAccess.open(metaverse_data, FileAccess.WRITE)
 					var metaverse_info = {
-								"name": "",
-								"v1":  2,
-								"v2":  0,
-								"v3":  0,
-								"v4":  0,
+								"name": metaverse_id,
+								"v1":  v1,
+								"v2":  v2,
+								"v3":  v3,
+								"v4":  v3,
 							}
 					metaverse_info.name = str(metaverse_id)
 					var metaverse_info_json = JSON.stringify(metaverse_info)

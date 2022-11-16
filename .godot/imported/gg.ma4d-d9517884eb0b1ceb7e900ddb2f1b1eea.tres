@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://mapod4d_core/base_me_mapod4d_res/base_me_mapod4d_res.gd" id="1_d7vdk"]
+
+[resource]
+script = ExtResource("1_d7vdk")
+name = "gg"
+v1 = 3
+v2 = 456
+v3 = 6
+v4 = 6

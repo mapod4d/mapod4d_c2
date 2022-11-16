@@ -17,8 +17,7 @@ func _enter_tree():
 func _exit_tree():
 	if main_panel_instance:
 		if main_panel_instance.utils_instance != null:
-			main_panel_instance.utils_instance.free()
-		main_panel_instance.queue_free()
+			main_panel_instance.queue_free()
 
 
 func _has_main_screen():
