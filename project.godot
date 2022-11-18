@@ -9,15 +9,20 @@
 config_version=5
 
 _global_script_classes=[{
-"base": "Control",
-"class": &"BaseMapod4dUi",
+"base": "Object",
+"class": &"Mapod4dBaseMetaverse",
 "language": &"GDScript",
-"path": "res://mapod4d_core/base_mapod4d_ui/base_mapod4d_ui.gd"
+"path": "res://mapod4d_core/mapod4d_base_metaverse/mapod4d_base_metaverse.gd"
+}, {
+"base": "Control",
+"class": &"Mapod4dBaseUi",
+"language": &"GDScript",
+"path": "res://mapod4d_core/mapod4d_base_ui/mapod4d_base_ui.gd"
 }, {
 "base": "Resource",
-"class": &"BaseMeMapod4dRes",
+"class": &"Mapod4dMa4dRes",
 "language": &"GDScript",
-"path": "res://mapod4d_core/base_me_mapod4d_res/base_me_mapod4d_res.gd"
+"path": "res://mapod4d_core/mapod4d_ma4d_res/mapod4d_ma4d_res.gd"
 }, {
 "base": "Control",
 "class": &"Mapod4dMain",
@@ -27,7 +32,7 @@ _global_script_classes=[{
 "base": "Node3D",
 "class": &"Mapod4dSphericalMetaverse",
 "language": &"GDScript",
-"path": "res://mapod4d_core/base_metaverses/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd"
+"path": "res://mapod4d_core/mapod4d_base_metaverse/mapod4d_spherical_metaverse/mapod4d_spherical_metavese.gd"
 }, {
 "base": "Object",
 "class": &"Mapod4dUtils",
@@ -35,8 +40,9 @@ _global_script_classes=[{
 "path": "res://mapod4d_core/mapod4d_utils/mapod4d_utils.gd"
 }]
 _global_script_class_icons={
-"BaseMapod4dUi": "",
-"BaseMeMapod4dRes": "",
+"Mapod4dBaseMetaverse": "",
+"Mapod4dBaseUi": "",
+"Mapod4dMa4dRes": "",
 "Mapod4dMain": "",
 "Mapod4dSphericalMetaverse": "",
 "Mapod4dUtils": ""
@@ -65,7 +71,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/mapod4d_ma4d/plugin.cfg", "res://addons/mapod4d_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/mapod4d_editor/plugin.cfg", "res://addons/mapod4d_ma4d/plugin.cfg")
 
 [filesystem]
 

@@ -72,7 +72,7 @@ func metaverse_list_load(location: MAPOD4D_METAVERSE_LOCATION):
 #				else:
 #					print("FILEERROR")
 	else:
-		print("%s" % str(DirAccess.get_open_error()))
+		printerr("%s" % str(DirAccess.get_open_error()))
 
 
 func metaverse_list_to_item_list(destination: ItemList):
@@ -94,30 +94,29 @@ func metaverse_scaffold(
 
 	if dir != null:
 		var metaverse_path = _current_location + "/" + metaverse_id
-		var metaverse_entry = metaverse_path + "/metaverse"
 		var metaverse_data = metaverse_path + "/" + metaverse_id + ".ma4d"
 		if dir.dir_exists(metaverse_path) == false:
 			if dir.make_dir(metaverse_path) == OK:
-				if dir.make_dir(metaverse_entry) == OK:
-					var file = FileAccess.open(metaverse_data, FileAccess.WRITE)
-					var metaverse_info = {
-								"name": metaverse_id,
-								"v1":  v1,
-								"v2":  v2,
-								"v3":  v3,
-								"v4":  v3,
-							}
-					metaverse_info.name = str(metaverse_id)
-					var metaverse_info_json = JSON.stringify(metaverse_info)
-					file.store_line(metaverse_info_json)
-					file = null
+				var file = FileAccess.open(metaverse_data, FileAccess.WRITE)
+				var metaverse_info = {
+							"name": metaverse_id,
+							"v1":  v1,
+							"v2":  v2,
+							"v3":  v3,
+							"v4":  v4,
+						}
+				print(metaverse_info)
+				metaverse_info.name = str(metaverse_id)
+				var metaverse_info_json = JSON.stringify(metaverse_info)
+				file.store_line(metaverse_info_json)
+				file = null
 		else:
-			print("ALREADY EXISTS")
+			printerr("Metaverse directory already exists")
 
 
 func metaverse_info_read(source_file):
 	var ret_val = false
-	var resource = BaseMeMapod4dRes.new()
+	var resource = Mapod4dMa4dRes.new()
 	var file = FileAccess.open(source_file, FileAccess.READ)
 	if file != null:
 		var data = file.get_line()
@@ -142,7 +141,7 @@ func _choose_metaverse_location(location: MAPOD4D_METAVERSE_LOCATION):
 		Mapod4dUtils.MAPOD4D_METAVERSE_LOCATION.DEV:
 			_current_location = "res://mapod4d_multiverse_dev"
 		_:
-			print("invalid metaverse location")
+			printerr("invalid metaverse location")
 			ret_val = false
 	return ret_val
 

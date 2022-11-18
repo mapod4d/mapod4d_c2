@@ -24,6 +24,7 @@ extends Control
 
 # ----- public variables
 var utils_instance = null
+var editor_interface = null
 
 # ----- private variables
 var _valid = false
@@ -46,26 +47,23 @@ var _valid = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if utils_instance == null:
-		print("INVALID UTILS OBJECT")
-	else:
-		_valid = true
-		_button_refresh_metaverse_list.pressed.connect(
-				_on_metaverse_list_refresh_pressed)
-		_metaverse_location.item_selected.connect(
-				_on_metaverse_location_selected)
-		_button_create_metaverse.pressed.connect(
-				_on_metaverse_create_pressed)
-		_input_metaverse_id.text_changed.connect(
-				_on_input_metaverse_id_text_changed)
-		_input_v1.text_changed.connect(
-				_on_input_v1_text_changed)
-		_input_v2.text_changed.connect(
-				_on_input_v2_text_changed)
-		_input_v3.text_changed.connect(
-				_on_input_v3_text_changed)
-		_input_v4.text_changed.connect(
-				_on_input_v4_text_changed)
+	_valid = true
+	_button_refresh_metaverse_list.pressed.connect(
+			_on_metaverse_list_refresh_pressed)
+	_metaverse_location.item_selected.connect(
+			_on_metaverse_location_selected)
+	_button_create_metaverse.pressed.connect(
+			_on_metaverse_create_pressed)
+	_input_metaverse_id.text_changed.connect(
+			_on_input_metaverse_id_text_changed)
+	_input_v1.text_changed.connect(
+			_on_input_v1_text_changed)
+	_input_v2.text_changed.connect(
+			_on_input_v2_text_changed)
+	_input_v3.text_changed.connect(
+			_on_input_v3_text_changed)
+	_input_v4.text_changed.connect(
+			_on_input_v4_text_changed)
 
 
 # ----- remaining built-in virtual methods
@@ -80,19 +78,22 @@ func _process(delta):
 # ----- private methods
 
 func _metaverse_list_refresh(location_id):
-	_metaverse_list.clear()
-	utils_instance.metaverse_list_clear()
-	var location = _metaverse_location.get_item_text(location_id)
-	match location:
-		"dev":
-			utils_instance.metaverse_list_load(
-					Mapod4dUtils.MAPOD4D_METAVERSE_LOCATION.DEV)
-		"local":
-			utils_instance.metaverse_list_load(
-					Mapod4dUtils.MAPOD4D_METAVERSE_LOCATION.LOCAL)
-		_:
-			pass
-	utils_instance.metaverse_list_to_item_list(_metaverse_list)
+	if utils_instance == null:
+		print("INVALID UTILS OBJECT")
+	else:
+		_metaverse_list.clear()
+		utils_instance.metaverse_list_clear()
+		var location = _metaverse_location.get_item_text(location_id)
+		match location:
+			"dev":
+				utils_instance.metaverse_list_load(
+						Mapod4dUtils.MAPOD4D_METAVERSE_LOCATION.DEV)
+			"local":
+				utils_instance.metaverse_list_load(
+						Mapod4dUtils.MAPOD4D_METAVERSE_LOCATION.LOCAL)
+			_:
+				pass
+		utils_instance.metaverse_list_to_item_list(_metaverse_list)
 
 
 # validation for integer
@@ -125,13 +126,16 @@ func _on_metaverse_create_pressed():
 	var v3 = _input_v3.text
 	var v4 = _input_v4.text
 	if (metaverse_id.length() + 
-			v1.length() + v2.length() + v3.length() + v1.length()) > 0:
+			v1.length() + v2.length() + v3.length() + v4.length()) > 0:
 		var location_id = _metaverse_location.get_selected_id()
 		print(location_id)
 		if location_id >= 0:
 			utils_instance.metaverse_scaffold(
 				location_id, metaverse_id,
 				v1.to_int(), v2.to_int(), v3.to_int(), v4.to_int())
+			var rfs = editor_interface.get_resource_filesystem()
+			if rfs != null:
+				rfs.scan()
 	else:
 		printerr("Metaverse ID, v1, v2, v3 and v4 connot be empty")
 

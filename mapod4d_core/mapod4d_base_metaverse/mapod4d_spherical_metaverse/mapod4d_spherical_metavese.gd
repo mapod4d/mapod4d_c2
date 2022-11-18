@@ -1,24 +1,17 @@
 # tool
 
 # class_name
-class_name BaseMapod4dUi
-
+class_name Mapod4dSphericalMetaverse
 # extends
-extends Control
+extends Node3D
 
-## A brief description of your script.
+## Base class for metaverse 3d
 ##
-## A more detailed description of the script.
+## Spherical metaverse.
 ##
-## @tutorial:			http://the/tutorial1/url.com
-## @tutorial(Tutorial2): http://the/tutorial2/url.com
 
 
 # ----- signals
-## request scene whithout progressbar
-signal scene_npb_requested(scene_name: String, fullscreen_flag: bool)
-## request scene whith progressbar
-signal scene_requested(scene_name: String, fullscreen_flag: bool)
 
 # ----- enums
 
@@ -32,6 +25,12 @@ signal scene_requested(scene_name: String, fullscreen_flag: bool)
 
 # ----- onready variables
 
+# ----- exported variables
+
+# ----- public variables
+
+# ----- private variables
+
 
 # ----- optional built-in virtual _init method
 
@@ -44,7 +43,7 @@ func _ready():
 # ----- remaining built-in virtual methods
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	pass # Replace with function body.
 
 # ----- public methods

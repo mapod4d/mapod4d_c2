@@ -165,7 +165,7 @@ func _load_scene():
 ## load scene no progress bar and update
 ## _current_loaded_scene updated
 func _attach_current_loaded_scene_signals():
-	if _current_loaded_scene is BaseMapod4dUi:
+	if _current_loaded_scene is Mapod4dBaseUi:
 		_current_loaded_scene.scene_requested.connect(
 			_on_scene_requested, CONNECT_DEFERRED)
 		_current_loaded_scene.scene_npb_requested.connect(

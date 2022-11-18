@@ -68,7 +68,7 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 		ret_val = ResourceSaver.save(
 			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
 	else:
-		var resource = BaseMeMapod4dRes.new()
+		var resource = Mapod4dMa4dRes.new()
 		ret_val = ResourceSaver.save(
 			metaverse_info[1], "%s.%s" % [save_path, _get_save_extension()])
 #	var resource = BaseMeMapod4dRes.new()

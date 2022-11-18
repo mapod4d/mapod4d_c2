@@ -1,5 +1,5 @@
 # class_name
-class_name BaseMeMapod4dRes
+class_name Mapod4dMa4dRes
 
 # extends
 extends Resource

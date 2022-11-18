@@ -3,7 +3,7 @@
 # class_name
 
 # extends
-extends BaseMapod4dUi
+extends Mapod4dBaseUi
 
 ## A brief description of your script.
 ##
