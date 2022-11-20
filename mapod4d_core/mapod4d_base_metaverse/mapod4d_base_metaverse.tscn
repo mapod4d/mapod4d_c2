@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://u7n3eafa75ng"]
+
+[ext_resource type="Script" path="res://mapod4d_core/mapod4d_base_metaverse/mapod4d_base_metaverse.gd" id="1_pufkr"]
+
+[node name="mapod4d_base_metaverse" type="Node3D"]
+script = ExtResource("1_pufkr")

@@ -95,6 +95,8 @@ func metaverse_scaffold(
 	if dir != null:
 		var metaverse_path = _current_location + "/" + metaverse_id
 		var metaverse_data = metaverse_path + "/" + metaverse_id + ".ma4d"
+		var metaverse_assets = metaverse_path + "/" + "assets"
+		var metaverse_tamt = metaverse_path + "/" + "tamt"
 		if dir.dir_exists(metaverse_path) == false:
 			if dir.make_dir(metaverse_path) == OK:
 				var file = FileAccess.open(metaverse_data, FileAccess.WRITE)
@@ -110,6 +112,8 @@ func metaverse_scaffold(
 				var metaverse_info_json = JSON.stringify(metaverse_info)
 				file.store_line(metaverse_info_json)
 				file = null
+			dir.make_dir(metaverse_assets)
+			dir.make_dir(metaverse_tamt)
 		else:
 			printerr("Metaverse directory already exists")
 
@@ -129,6 +133,13 @@ func metaverse_info_read(source_file):
 			resource.v4 = data_json.v4
 	return [ret_val, resource]
 
+
+func planet_scaffold(
+		location: MAPOD4D_METAVERSE_LOCATION,
+		metaverse_id: String,
+		planet_id,
+		planet_type: Mapod4dPlanet.MAPOD4D_PLANET_TYPE):
+	pass
 
 # ----- private methods
 

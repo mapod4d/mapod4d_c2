@@ -1,7 +1,7 @@
 # tool
 
 # class_name
-class_name Mapod4dSphericalMetaverse
+class_name Mapod4dSpherePlanet
 # extends
 extends Node3D
 
@@ -22,6 +22,7 @@ extends Node3D
 # ----- public variables
 
 # ----- private variables
+var _planet: Mapod4dPlanet
 
 # ----- onready variables
 
@@ -36,9 +37,11 @@ extends Node3D
 
 # ----- built-in virtual _ready method
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	_planet.planet_type = Mapod4dPlanet.SPHERE
+
 
 # ----- remaining built-in virtual methods
 
@@ -49,8 +52,4 @@ func _process(delta):
 # ----- public methods
 
 # ----- private methods
-
-
-
-
 

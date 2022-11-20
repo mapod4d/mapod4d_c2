@@ -1,10 +1,10 @@
 # tool
 
 # class_name
-class_name Mapod4dBaseMetaverse
+class_name Mapod4dPlanet
 
 # extends
-extends Node3D
+extends Object
 
 ## A brief description of your script.
 ##
@@ -17,10 +17,16 @@ extends Node3D
 # ----- signals
 
 # ----- enums
+enum MAPOD4D_PLANET_TYPE {
+	NONE=0,
+	SPHERE,
+	PLAIN,
+}
 
 # ----- constants
 
 # ----- public variables
+var planet_type: MAPOD4D_PLANET_TYPE
 
 # ----- private variables
 

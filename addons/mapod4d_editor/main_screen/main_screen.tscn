@@ -1,6 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceeh8kufk378v"]
+[gd_scene load_steps=7 format=3 uid="uid://ceeh8kufk378v"]
 
 [ext_resource type="Script" path="res://addons/mapod4d_editor/main_screen/main_screen.gd" id="1_o2kiv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iv624"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.376471, 0.376471, 0.376471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4750"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wx57"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.376471, 0.376471, 0.376471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8xwp"]
+bg_color = Color(0.282353, 0.282353, 0.282353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6y11"]
 content_margin_left = 10.0
@@ -16,12 +54,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8xwp"]
-bg_color = Color(0.282353, 0.282353, 0.282353, 1)
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_fbig8"]
-thickness = 4
 
 [node name="MainScreen" type="Control"]
 layout_mode = 3
@@ -120,23 +152,31 @@ offset_right = 300.0
 offset_bottom = 638.0
 text = "Refresh Metaverse Planet"
 
-[node name="PanelContainer" type="PanelContainer" parent="ScrollContainer/Margin/HBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="ScrollContainer/Margin/HBoxContainer"]
 layout_mode = 2
 offset_left = 608.0
 offset_right = 1142.0
 offset_bottom = 638.0
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_t6y11")
+theme_override_constants/side_margin = 8
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_iv624")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_d4750")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2wx57")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer"]
+[node name="Metaverse" type="VBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer"]
 layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = 10.0
-offset_right = 524.0
-offset_bottom = 628.0
+offset_top = 41.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Label2" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse"]
 layout_mode = 2
 offset_right = 514.0
 offset_bottom = 26.0
@@ -146,25 +186,25 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a8xwp")
 text = "Metavese building"
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse"]
 layout_mode = 2
 offset_top = 36.0
 offset_right = 514.0
 offset_bottom = 102.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer"]
 layout_mode = 2
 offset_right = 514.0
 offset_bottom = 31.0
 
-[node name="Label" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 offset_top = 2.0
 offset_right = 17.0
 offset_bottom = 28.0
 text = "ID"
 
-[node name="MetaverseId" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="MetaverseId" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -175,27 +215,27 @@ placeholder_text = "Metaverse ID"
 max_length = 20
 clear_button_enabled = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer"]
 layout_mode = 2
 offset_top = 35.0
 offset_right = 514.0
 offset_bottom = 66.0
 
-[node name="Label2" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 offset_top = 2.0
 offset_right = 20.0
 offset_bottom = 28.0
 text = "V1"
 
-[node name="V1" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="V1" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 24.0
 offset_right = 91.0
 offset_bottom = 31.0
 
-[node name="Label3" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 offset_left = 95.0
 offset_top = 2.0
@@ -203,14 +243,14 @@ offset_right = 113.0
 offset_bottom = 28.0
 text = "v2"
 
-[node name="V2" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="V2" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 117.0
 offset_right = 184.0
 offset_bottom = 31.0
 
-[node name="Label4" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label4" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 offset_left = 188.0
 offset_top = 2.0
@@ -218,14 +258,14 @@ offset_right = 206.0
 offset_bottom = 28.0
 text = "v3"
 
-[node name="V3" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="V3" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 210.0
 offset_right = 277.0
 offset_bottom = 31.0
 
-[node name="Label5" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label5" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 offset_left = 281.0
 offset_top = 2.0
@@ -233,20 +273,20 @@ offset_right = 299.0
 offset_bottom = 28.0
 text = "v4"
 
-[node name="V4" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="V4" type="LineEdit" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 303.0
 offset_right = 370.0
 offset_bottom = 31.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse"]
 layout_mode = 2
 offset_top = 112.0
 offset_right = 514.0
 offset_bottom = 143.0
 
-[node name="CreateMetaverse" type="Button" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CreateMetaverse" type="Button" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_right = 182.0
@@ -255,33 +295,35 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Create new Metaverse"
 
-[node name="Button" type="Button" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/HBoxContainer"]
 layout_mode = 2
 offset_left = 186.0
 offset_right = 337.0
 offset_bottom = 31.0
 text = "Update Metaverse"
 
-[node name="Button2" type="Button" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Metaverse/HBoxContainer"]
 layout_mode = 2
 offset_left = 341.0
 offset_right = 486.0
 offset_bottom = 31.0
 text = "Export Metaverse"
 
-[node name="HSeparator" type="HSeparator" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Planet" type="VBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
-offset_top = 153.0
-offset_right = 514.0
-offset_bottom = 158.0
-theme_override_constants/separation = 5
-theme_override_styles/separator = SubResource("StyleBoxLine_fbig8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 41.0
+offset_right = -10.0
+offset_bottom = -10.0
 
-[node name="Label" type="Label" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Planet"]
 layout_mode = 2
-offset_top = 168.0
 offset_right = 116.0
-offset_bottom = 194.0
+offset_bottom = 26.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.627451, 0.74902, 1, 1)
@@ -289,14 +331,23 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a8xwp")
 text = "Planet building"
 vertical_alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Planet"]
 layout_mode = 2
-offset_top = 204.0
+offset_top = 30.0
 offset_right = 514.0
-offset_bottom = 235.0
+offset_bottom = 61.0
 
-[node name="Button" type="Button" parent="ScrollContainer/Margin/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="ScrollContainer/Margin/HBoxContainer/TabContainer/Planet/HBoxContainer3"]
 layout_mode = 2
 offset_right = 113.0
 offset_bottom = 31.0
 text = "Create planet"
+
+[node name="PanelContainer" type="PanelContainer" parent="ScrollContainer/Margin/HBoxContainer"]
+visible = false
+layout_mode = 2
+offset_left = 1098.0
+offset_right = 1142.0
+offset_bottom = 638.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_t6y11")
