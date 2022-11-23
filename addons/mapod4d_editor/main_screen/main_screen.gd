@@ -28,6 +28,7 @@ var editor_interface = null
 
 # ----- private variables
 var _valid = false
+var _tmp_val = 0
 
 # ----- onready variables
 @onready var _my_root_node = $ScrollContainer
@@ -40,6 +41,7 @@ var _valid = false
 @onready var _input_v2 = %V2
 @onready var _input_v3 = %V3
 @onready var _input_v4 = %V4
+@onready var _button_test = %Test
 
 # ----- optional built-in virtual _init method
 
@@ -64,6 +66,8 @@ func _ready():
 			_on_input_v3_text_changed)
 	_input_v4.text_changed.connect(
 			_on_input_v4_text_changed)
+	_button_test.pressed.connect(
+			_on_button_test_pressed)
 
 
 # ----- remaining built-in virtual methods
@@ -76,6 +80,78 @@ func _process(delta):
 # ----- public methods
 
 # ----- private methods
+
+## TEST
+func create_inherited_scene(
+		_inherits: PackedScene, _root_name: String = "") -> PackedScene:
+	if(_root_name == ""):
+		_root_name = _inherits._bundled["names"][0];
+	var scene := PackedScene.new();
+	scene._bundled = {
+		"base_scene": 0,
+		"conn_count": 0,
+		"conns": [],
+		"editable_instances": [],
+		"names": [_root_name],
+		"node_count": 1,
+		"node_paths": [],
+		"nodes": [-1, -1, 2147483647, 0, -1, 0, 0],
+		"variants": [_inherits],
+		"version": 2
+	}
+	return scene;
+
+
+## TEST
+func save_scene():
+	# Create the objects.
+	var node = Node2D.new()
+	var rigid = RigidBody2D.new()
+	var collision = CollisionShape2D.new()
+
+	# names
+	node.set_name("Main")
+	rigid.set_name("Body")
+	collision.set_name("Collisione")
+
+	# Create the object hierarchy.
+	rigid.add_child(collision)
+	node.add_child(rigid)
+
+	rigid.set_owner(node)
+	collision.set_owner(node)
+
+	var scene = PackedScene.new()
+	# Only `node` and `rigid` are now packed.
+	var result = scene.pack(node)
+	if result == OK:
+		var error = ResourceSaver.save(scene, "res://peppo.tscn")  # Or "user://...
+		if error != OK:
+			push_error("An error occurred while saving the scene to disk.")
+
+
+## TEST
+func save_scene_in():
+	var lscene: PackedScene = load("res://xx.tscn")
+	var node : Node = lscene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	print(node)
+	node.set_name("Peppo" + str(_tmp_val))
+	_tmp_val += 1
+	print(node)
+	var scene: PackedScene = PackedScene.new()
+	scene.pack(node)
+	print(_tmp_val)
+	var error = ResourceSaver.save(scene, "res://peppo.tscn")  # Or "user://...
+	if error != OK:
+		push_error("An error occurred while saving the scene to disk.")
+	else:
+		editor_interface.reload_scene_from_path("res://peppo.tscn")
+
+#	else:
+#		var rfs = editor_interface.
+#		if rfs != null:
+#			rfs.scan()
+
 
 func _metaverse_list_refresh(location_id):
 	if utils_instance == null:
@@ -154,16 +230,22 @@ func _on_input_metaverse_id_text_changed(new_text):
 
 
 func _on_input_v1_text_changed(new_text):
-		_validate_integer_input(new_text, _input_v1)
+	_validate_integer_input(new_text, _input_v1)
 
 
 func _on_input_v2_text_changed(new_text):
-		_validate_integer_input(new_text, _input_v2)
+	_validate_integer_input(new_text, _input_v2)
 
 
 func _on_input_v3_text_changed(new_text):
-		_validate_integer_input(new_text, _input_v3)
+	_validate_integer_input(new_text, _input_v3)
 
 
 func _on_input_v4_text_changed(new_text):
-		_validate_integer_input(new_text, _input_v4)
+	_validate_integer_input(new_text, _input_v4)
+
+
+func _on_button_test_pressed():
+	print("button_test_pressed")
+	save_scene_in()
+

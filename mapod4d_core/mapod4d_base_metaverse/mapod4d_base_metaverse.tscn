@@ -4,3 +4,9 @@
 
 [node name="mapod4d_base_metaverse" type="Node3D"]
 script = ExtResource("1_pufkr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
