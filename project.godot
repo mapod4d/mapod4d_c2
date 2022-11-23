@@ -37,7 +37,7 @@ _global_script_classes=[{
 "base": "Node3D",
 "class": &"Mapod4dSpherePlanet",
 "language": &"GDScript",
-"path": "res://mapod4d_core/mapod4d_planet/mapod4d_sphere_planet/mapod4d_sphere_planet.gd"
+"path": "res://mapod4d_core/mapod4d_planet/mapod4d_base_sphere_planet/mapod4d_base_sphere_planet.gd"
 }, {
 "base": "Object",
 "class": &"Mapod4dUtils",

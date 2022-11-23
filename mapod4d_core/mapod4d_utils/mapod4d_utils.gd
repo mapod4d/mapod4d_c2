@@ -24,6 +24,8 @@ enum MAPOD4D_METAVERSE_LOCATION {
 
 # ----- constants
 const MAPOD4D_METAVERSE_EXT = "ma4d"
+const TEMPL_DIR = "res://mapod4d_templates/"
+const TEMPL_METAVERESE = "mapod_4d_templ_metaverse.tscn"
 
 # ----- exported variables
 
@@ -88,6 +90,10 @@ func metaverse_scaffold(
 		location: MAPOD4D_METAVERSE_LOCATION,
 		metaverse_id: String,
 		v1: int, v2: int, v3: int, v4: int):
+	var ret_val = {
+		"response": false,
+		"scenes_list": []
+	}
 	var dir = null
 	if _choose_metaverse_location(location) == true:
 		dir = DirAccess.open(_current_location)
@@ -114,8 +120,17 @@ func metaverse_scaffold(
 				file = null
 			dir.make_dir(metaverse_assets)
 			dir.make_dir(metaverse_tamt)
+			var metaverse_name = metaverse_id.substr(0,1).to_upper()
+			metaverse_name += metaverse_id.substr(1)
+			if _save_templ_scene(
+					TEMPL_METAVERESE,
+					metaverse_path + "/" + metaverse_id + ".tscn", 
+					metaverse_name):
+				ret_val.scenes_list.push_front(metaverse_path)
+			ret_val.response = true
 		else:
 			printerr("Metaverse directory already exists")
+	return ret_val
 
 
 func metaverse_info_read(source_file):
@@ -154,6 +169,35 @@ func _choose_metaverse_location(location: MAPOD4D_METAVERSE_LOCATION):
 		_:
 			printerr("invalid metaverse location")
 			ret_val = false
+	return ret_val
+
+
+## load packed template scene
+## change root node name
+## save new packed scene
+func _save_templ_scene(
+		source_name: String, dest_path: String, root_node_name: String):
+	var ret_val = false
+	if ResourceLoader.exists(TEMPL_DIR + source_name, "PackedScene"):
+		print("1")
+		var lscene: PackedScene = load(TEMPL_DIR + source_name)
+		print("2")
+		var node : Node = lscene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		print("3")
+		node.set_name(root_node_name)
+		print("4")
+		var scene: PackedScene = PackedScene.new()
+		print("5")
+		scene.pack(node)
+		print("6")
+		var error = ResourceSaver.save(scene, dest_path)
+		print(dest_path + " 7")
+		if error != OK:
+			push_error("An error occurred while saving the scene to disk.")
+		else:
+			ret_val = true
+	else:
+		printerr(TEMPL_DIR + source_name + " not found")
 	return ret_val
 
 

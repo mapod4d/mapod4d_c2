@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://mapod4d_core/mapod4d_ma4d_res/mapod4d_ma4d_res.gd" id="1_h835a"]
+[ext_resource type="Script" path="res://mapod4d_core/mapod4d_ma4d_res/mapod4d_ma4d_res.gd" id="1_son05"]
 
 [resource]
-script = ExtResource("1_h835a")
+script = ExtResource("1_son05")
 name = "test"
 v1 = 2
 v2 = 3
 v3 = 4
-v4 = 5
+v4 = 3

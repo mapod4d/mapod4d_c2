@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://f24md0sthem7"]
+
+[ext_resource type="PackedScene" uid="uid://u7n3eafa75ng" path="res://mapod4d_core/mapod4d_base_metaverse/mapod4d_base_metaverse.tscn" id="1_j6ehn"]
+
+[node name="Mapod4dTemplMetaverse" instance=ExtResource("1_j6ehn")]

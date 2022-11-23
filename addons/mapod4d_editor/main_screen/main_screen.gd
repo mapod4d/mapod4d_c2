@@ -19,6 +19,8 @@ extends Control
 # ----- enums
 
 # ----- constants
+#const TEMPL_DIR = "res://mapod4d_templates/"
+#const TEMPL_METAVERESE = "mapod_4d_templ_metaverse.tscn"
 
 # ----- exported variables
 
@@ -28,6 +30,7 @@ var editor_interface = null
 
 # ----- private variables
 var _valid = false
+var _templ_metaverse_exist = false
 var _tmp_val = 0
 
 # ----- onready variables
@@ -37,6 +40,7 @@ var _tmp_val = 0
 @onready var _metaverse_list = %MetaverseList
 @onready var _button_create_metaverse = %CreateMetaverse
 @onready var _input_metaverse_id = %MetaverseId
+@onready var _editor_tab_container = %EditorTabContainer
 @onready var _input_v1 = %V1
 @onready var _input_v2 = %V2
 @onready var _input_v3 = %V3
@@ -49,6 +53,9 @@ var _tmp_val = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## enable only for test
+	_editor_tab_container.set_tab_disabled(2, true)
+	
 	_valid = true
 	_button_refresh_metaverse_list.pressed.connect(
 			_on_metaverse_list_refresh_pressed)
@@ -153,6 +160,26 @@ func save_scene_in():
 #			rfs.scan()
 
 
+### load packed template scene
+### change root node name
+### save new packed scene
+#func _save_templ_scene(
+#		source_name: String, dest_path: String, root_node_name: String):
+#	if ResourceLoader.exists(TEMPL_DIR + source_name, "PackedScene"):
+#		var lscene: PackedScene = load(TEMPL_DIR + source_name)
+#		var node : Node = lscene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+#		node.set_name(root_node_name)
+#		var scene: PackedScene = PackedScene.new()
+#		scene.pack(node)
+#		var error = ResourceSaver.save(scene, dest_path)
+#		if error != OK:
+#			push_error("An error occurred while saving the scene to disk.")
+#		else:
+#			editor_interface.reload_scene_from_path(dest_path)
+#	else:
+#		printerr(TEMPL_DIR + source_name + " not found")
+
+
 func _metaverse_list_refresh(location_id):
 	if utils_instance == null:
 		print("INVALID UTILS OBJECT")
@@ -206,12 +233,16 @@ func _on_metaverse_create_pressed():
 		var location_id = _metaverse_location.get_selected_id()
 		print(location_id)
 		if location_id >= 0:
-			utils_instance.metaverse_scaffold(
+			var ret_val = utils_instance.metaverse_scaffold(
 				location_id, metaverse_id,
 				v1.to_int(), v2.to_int(), v3.to_int(), v4.to_int())
+
+			## refresh
 			var rfs = editor_interface.get_resource_filesystem()
 			if rfs != null:
 				rfs.scan()
+			for scene in ret_val.scenes_list:
+				editor_interface.reload_scene_from_path(scene)
 	else:
 		printerr("Metaverse ID, v1, v2, v3 and v4 connot be empty")
 
