@@ -1,8 +1,7 @@
-
 # Godot-specific ignores
-#.godot/
-.godot/editor/
-.godot/shader_cache/
+.godot/
+#.godot/editor/
+#.godot/shader_cache/
 #!.godot/imported/*
 #!.godot/exported/*
 #!.godot/uid_cached.bin
