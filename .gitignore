@@ -13,6 +13,7 @@
 data_*/
 
 # MAPOD4D
+/trash/*
 /mapod4d_multiverse_dev/*
 !/mapod4d_multiverse_dev/readme.md
 /bin/html5/*

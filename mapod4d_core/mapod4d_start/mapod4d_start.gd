@@ -54,6 +54,8 @@ func _on_start_button_pressed():
 #	DisplayServer.window_set_size(Vector2i(1920, 1080))
 #	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 #	Mapod4dAutoload.im_alive()
-	emit_signal("scene_requested", 
+	var error = emit_signal("m4d_scene_requested", 
 			"res://mapod4d_core/mapod4d_main_menu/mapod4d_main_menu.tscn", true)
+	if error != OK:
+		printerr("_on_start_button_pressed() error emit_signal")
 

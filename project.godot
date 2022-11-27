@@ -72,12 +72,12 @@ Mapod4dAutoload="*res://mapod4d_core/mapod4d_autoload/mapod4d_autoload.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
+window/size/mode=2
 window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/mapod4d_ma4d/plugin.cfg", "res://addons/mapod4d_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/mapod4d_editor/plugin.cfg", "res://addons/mapod4d_ma4d/plugin.cfg")
 
 [filesystem]
 

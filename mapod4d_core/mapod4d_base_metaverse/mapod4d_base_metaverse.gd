@@ -6,6 +6,7 @@ class_name Mapod4dBaseMetaverse
 # extends
 extends Node3D
 
+
 ## A brief description of your script.
 ##
 ## A more detailed description of the script.
